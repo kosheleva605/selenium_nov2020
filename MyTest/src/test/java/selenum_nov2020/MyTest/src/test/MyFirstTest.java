@@ -3,12 +3,13 @@ package selenum_nov2020.MyTest.src.test;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
-
+import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
 
 public class MyFirstTest {
@@ -23,8 +24,8 @@ private WebDriverWait wait;
 }
 @Test
    public void myFirstTest() {
-    driver.get("http://www.google.com");
-    wait.until(titleIs("webdriver - Поиск в Google"));
+    driver.get("http://www.yandex.ru");
+    wait.until(presenceOfElementLocated(By.className("home-logo__default")));
 }
 @After
     public void stop() {
