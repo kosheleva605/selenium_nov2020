@@ -70,6 +70,48 @@ public class loginLitecart {
 
     }
 
+    @Test
+    public void shouldFindOneSticker() {
+        driver.get("http://localhost/litecart/admin/login.php");
+        driver.findElement(By.name("username")).sendKeys("admin");
+        driver.findElement(By.name("password")).sendKeys("admin");
+        driver.findElement(By.name("login")).click();
+        try {
+            wait.until(ExpectedConditions.titleContains("My Store"));
+        } catch (NoSuchElementException error) {
+            driver.quit();
+        }
+        driver.get("http://localhost/litecart/en/");
+
+        List<WebElement> elementListDucks = driver.findElements(By.cssSelector(".product.column.shadow.hover-light"));
+
+        int numberOfListElements = elementListDucks.size();
+
+        for (int i = 0; i < numberOfListElements; i++) {
+
+            try {
+                WebElement imgDuck = elementListDucks.get(i).findElement(By.cssSelector(".image-wrapper"));
+                List<WebElement> stickers = imgDuck.findElements(By.cssSelector(".sticker"));
+                int numberOfListStickers = stickers.size();
+
+                if (numberOfListStickers > 1) {
+                    System.out.println("stickers > 1");
+                }
+                if (numberOfListStickers == 0) {
+                    System.out.println("stickers = 0");
+                }
+                if (numberOfListStickers == 1) {
+                    System.out.println("stickers = 1");
+                }
+            } catch (Exception e) {
+            }
+
+
+        }
+
+    }
+
+
     @After
     public void stop() {
         driver.quit();
