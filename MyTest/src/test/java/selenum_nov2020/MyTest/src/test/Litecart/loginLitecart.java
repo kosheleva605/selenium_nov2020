@@ -63,12 +63,21 @@ public class loginLitecart {
         for (int i = 0; i < numberOfListElements; i++) {
             elementList = driver.findElements(By.cssSelector("#box-apps-menu a"));
             elementList.get(i).click();
-
+            elementList = driver.findElements(By.cssSelector("#box-apps-menu a"));
             List<WebElement> h1 = driver.findElements(By.tagName("h1"));
 
-        }
+            List<WebElement> subMenu = elementList.get(i).findElements(By.cssSelector(".app-"));
+            int numberOfListElementsNew = subMenu.size();
+            for (int j = 0; j < numberOfListElementsNew; j++) {
+                subMenu = elementList.get(i).findElements(By.cssSelector(".app-"));
+                subMenu.get(j).click();
+                List<WebElement> h2 = driver.findElements(By.tagName("h1"));
+            }
 
+
+        }
     }
+
 
     @Test
     public void shouldFindOneSticker() {
