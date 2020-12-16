@@ -8,15 +8,15 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.json.JsonOutput;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.w3c.dom.ls.LSOutput;
 
 import java.time.Duration;
-import java.util.List;
+import java.util.*;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.*;
+import static java.util.Collections.sort;
 
 public class loginLitecart {
 
@@ -118,6 +118,41 @@ public class loginLitecart {
 
         }
 
+    }
+
+    @Test
+    public void ShouldGetCountriesA_Z() {
+        driver.get("http://localhost/litecart/admin/login.php");
+        driver.findElement(By.name("username")).sendKeys("admin");
+        driver.findElement(By.name("password")).sendKeys("admin");
+        driver.findElement(By.name("login")).click();
+        try {
+            wait.until(ExpectedConditions.titleContains("My Store"));
+        } catch (NoSuchElementException error) {
+            driver.quit();
+        }
+        driver.get("http://localhost/litecart/admin/?app=countries&doc=countries");
+        List<WebElement> allCountries = driver.findElements(By.xpath("//*[@id=\"content\"]/form/table/tbody/tr/td[5]"));
+        int numberOfCountries = allCountries.size();
+        boolean num = true;
+        String next;
+        String prev;
+        if (numberOfCountries > 1) {
+            for (int i = 0; i < (numberOfCountries - 1); i++) {
+                prev = allCountries.get(i).getAttribute("textContent");
+                next = allCountries.get(i + 1).getAttribute("textContent");
+                //String countries = allCountries.get(i).getAttribute("textContent");
+                //System.out.println(countries);
+                //System.out.println(prev.compareTo(next));
+                if (prev.compareTo(next) > 0) {
+                    num = false;
+                }
+            }
+            System.out.println(num);
+
+        } else {
+            System.out.println("Countries < 2");
+        }
     }
 
 

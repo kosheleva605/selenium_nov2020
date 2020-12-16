@@ -1,3 +1,5 @@
+selenum_nov2020/MyTest/src/test/Litecart/AuthorisationTest.java
+ selenum_nov2020.MyTest.src.test.Litecart.AuthorisationTest
 selenum_nov2020/MyTest/src/test/MyFirstTest.java
  selenum_nov2020.MyTest.src.test.MyFirstTest
 selenum_nov2020/MyTest/src/test/Litecart/loginLitecart.java
