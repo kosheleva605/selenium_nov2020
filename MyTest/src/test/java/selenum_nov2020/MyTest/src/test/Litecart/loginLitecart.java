@@ -155,6 +155,101 @@ public class loginLitecart {
         }
     }
 
+    @Test
+    public void shouldGetZonesOfCountriesA_Z() {
+        driver.get("http://localhost/litecart/admin/login.php");
+        driver.findElement(By.name("username")).sendKeys("admin");
+        driver.findElement(By.name("password")).sendKeys("admin");
+        driver.findElement(By.name("login")).click();
+        try {
+            wait.until(ExpectedConditions.titleContains("My Store"));
+        } catch (NoSuchElementException error) {
+            driver.quit();
+        }
+        driver.get("http://localhost/litecart/admin/?app=countries&doc=countries");
+        List<WebElement> allCountries = driver.findElements(By.xpath("//*[@id=\"content\"]/form/table/tbody/tr/td[6]"));
+        List<WebElement> allCoun1 = driver.findElements(By.xpath("//*[@id=\"content\"]/form/table/tbody/tr/td[5]/a"));
+        int numberOfCountries = allCountries.size();
+                String prev;
+        for (int i = 0; i < numberOfCountries; i++) {
+            prev = allCountries.get(i).getAttribute("textContent");
+
+
+            if (!prev.equals("0")) {
+                allCoun1.get(i).click();
+                List<WebElement> allCountZones = driver.findElements(By.xpath("//*[@id=\"table-zones\"]/tbody/tr/td[3]"));
+                int numberOfZones = allCountZones.size();
+                boolean num1 = true;
+                String next1;
+                String prev1;
+                for (int j = 0; j < (numberOfZones - 2); j++) {
+                    prev1 = allCountZones.get(j).getAttribute("textContent");
+                    next1 = allCountZones.get(j + 1).getAttribute("textContent");
+
+                    if (prev1.compareTo(next1) > 0) {
+                        num1 = false;
+                    }
+
+                }
+                System.out.println(num1);
+                driver.get("http://localhost/litecart/admin/?app=countries&doc=countries");
+                allCountries = driver.findElements(By.xpath("//*[@id=\"content\"]/form/table/tbody/tr/td[6]"));
+                allCoun1 = driver.findElements(By.xpath("//*[@id=\"content\"]/form/table/tbody/tr/td[5]/a"));
+            } else {
+                System.out.println("Zones = 0");
+            }
+
+
+        }
+    }
+
+    @Test
+    public void ShouldGetGeoZonesA_Z() {
+        driver.get("http://localhost/litecart/admin/login.php");
+        driver.findElement(By.name("username")).sendKeys("admin");
+        driver.findElement(By.name("password")).sendKeys("admin");
+        driver.findElement(By.name("login")).click();
+        try {
+            wait.until(ExpectedConditions.titleContains("My Store"));
+        } catch (NoSuchElementException error) {
+            driver.quit();
+        }
+        driver.get("http://localhost/litecart/admin/?app=geo_zones&doc=geo_zones");
+        List<WebElement> allZones = driver.findElements(By.xpath("//*[@id=\"content\"]/form/table/tbody/tr/td[3]/a"));
+        int numberOfZones = allZones.size();
+        for (int i = 0; i < (numberOfZones); i++) {
+            allZones.get(i).click();
+            List<WebElement> zones = driver.findElements(By.xpath("//*[@id=\"table-zones\"]/tbody/tr/td[3]/select/option"));
+            int numZones = zones.size();
+            System.out.println(zones.size());
+            List<String> listOfZones = new ArrayList<String>();
+
+            for (int j = 0; j < numZones; j ++) {
+                if (zones.get(j).isSelected()) {
+                    listOfZones.add(zones.get(j).getAttribute("textContent"));
+                }
+           }
+            System.out.println(listOfZones);
+            boolean num = true;
+            String next;
+            String prev;
+            int listZones = listOfZones.size();
+            if (listZones > 1) {
+                for (int j = 0; j < (listZones - 1); j++) {
+
+                    if (listOfZones.get(j).compareTo(listOfZones.get(j + 1)) > 0) {
+                        num = false;
+                    }
+                }
+                System.out.println(num);
+            } else {
+                System.out.println("Zones < 2");
+            }
+
+            driver.get("http://localhost/litecart/admin/?app=geo_zones&doc=geo_zones");
+            allZones = driver.findElements(By.xpath("//*[@id=\"content\"]/form/table/tbody/tr/td[3]/a"));
+        }
+    }
 
     @After
     public void stop() {
