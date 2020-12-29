@@ -4,3 +4,5 @@ selenum_nov2020/MyTest/src/test/MyFirstTest.java
  selenum_nov2020.MyTest.src.test.MyFirstTest
 selenum_nov2020/MyTest/src/test/Litecart/loginLitecart.java
  selenum_nov2020.MyTest.src.test.Litecart.loginLitecart
+selenum_nov2020/MyTest/src/test/Litecart/YellowDuckTest.java
+ selenum_nov2020.MyTest.src.test.Litecart.YellowDuckTest

@@ -121,7 +121,7 @@ public class loginLitecart {
     }
 
     @Test
-    public void ShouldGetCountriesA_Z() {
+    public void shouldGetCountriesA_Z() {
         driver.get("http://localhost/litecart/admin/login.php");
         driver.findElement(By.name("username")).sendKeys("admin");
         driver.findElement(By.name("password")).sendKeys("admin");
@@ -170,7 +170,7 @@ public class loginLitecart {
         List<WebElement> allCountries = driver.findElements(By.xpath("//*[@id=\"content\"]/form/table/tbody/tr/td[6]"));
         List<WebElement> allCoun1 = driver.findElements(By.xpath("//*[@id=\"content\"]/form/table/tbody/tr/td[5]/a"));
         int numberOfCountries = allCountries.size();
-                String prev;
+        String prev;
         for (int i = 0; i < numberOfCountries; i++) {
             prev = allCountries.get(i).getAttribute("textContent");
 
@@ -204,7 +204,7 @@ public class loginLitecart {
     }
 
     @Test
-    public void ShouldGetGeoZonesA_Z() {
+    public void shouldGetGeoZonesA_Z() {
         driver.get("http://localhost/litecart/admin/login.php");
         driver.findElement(By.name("username")).sendKeys("admin");
         driver.findElement(By.name("password")).sendKeys("admin");
@@ -224,11 +224,11 @@ public class loginLitecart {
             System.out.println(zones.size());
             List<String> listOfZones = new ArrayList<String>();
 
-            for (int j = 0; j < numZones; j ++) {
+            for (int j = 0; j < numZones; j++) {
                 if (zones.get(j).isSelected()) {
                     listOfZones.add(zones.get(j).getAttribute("textContent"));
                 }
-           }
+            }
             System.out.println(listOfZones);
             boolean num = true;
             String next;
@@ -250,6 +250,7 @@ public class loginLitecart {
             allZones = driver.findElements(By.xpath("//*[@id=\"content\"]/form/table/tbody/tr/td[3]/a"));
         }
     }
+
 
     @After
     public void stop() {
