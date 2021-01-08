@@ -59,25 +59,21 @@ public class AuthorisationTest {
         email.sendKeys("username" + randomInt + "@gmail.com");
         String newEmail = driver.findElement(By.cssSelector("input[type = 'email'][name = 'email']")).getAttribute("value");
 
+        Select select = new Select(driver.findElement(By.cssSelector("select[name = 'zone_code']")));
+        JavascriptExecutor executor = (JavascriptExecutor)driver;
+        executor.executeScript("arguments[0].selectedIndex = 5", select);
+
         driver.findElement(By.cssSelector("input[type = 'tel'][name = 'phone']")).sendKeys("+11111111222");
 
         driver.findElement(By.cssSelector("input[type = 'password'][name = 'password']")).sendKeys("test");
         driver.findElement(By.cssSelector("input[type = 'password'][name = 'confirmed_password']")).sendKeys("test");
         String newPsw = driver.findElement(By.cssSelector("input[type = 'password'][name = 'password']")).getAttribute("value");
 
-        driver.findElement(By.cssSelector("button[type = 'submit'][name = 'create_account']")).click();
-
         try {
-            Thread.sleep(5000);
-        } catch (InterruptedException ie) {
+            wait.until(ExpectedConditions.titleContains("My Store"));
+        } catch (NoSuchElementException error) {
+            driver.quit();
         }
-
-        Select select = new Select(driver.findElement(By.cssSelector("select[name = 'zone_code']")));
-        select.selectByVisibleText("Arkansas");
-
-
-        driver.findElement(By.cssSelector("input[type = 'password'][name = 'password']")).sendKeys("test");
-        driver.findElement(By.cssSelector("input[type = 'password'][name = 'confirmed_password']")).sendKeys("test");
 
         driver.findElement(By.cssSelector("button[type = 'submit'][name = 'create_account']")).click();
         try {
@@ -85,7 +81,8 @@ public class AuthorisationTest {
         } catch (NoSuchElementException error) {
             driver.quit();
         }
-        driver.get("http://localhost/litecart/en/logout");
+
+       driver.get("http://localhost/litecart/en/logout");
 
         try {
             Thread.sleep(5000);
